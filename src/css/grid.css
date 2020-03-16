@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 16px;
+  margin: 0 auto;
+}
+
+.row {
+  margin-left: -16px;
+  margin-right: -16px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.col3 {
+  width: calc(100% / 3);
+  padding-left: 16px;
+  padding-right: 16px;
+}

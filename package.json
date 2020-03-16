@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "node webpack/build.js",
-    "dev": "webpack-dev-server --inline --env=development --config ./webpack/webpack.dev.config.js",
+    "build": "NODE_ENV=production node webpack/build.js",
+    "dev": "NODE_ENV=development webpack-dev-server --inline --config ./webpack/webpack.dev.config.js",
     "stylelint:check": "stylelint './src/scss/**/*.scss'",
     "stylelint:fix": "stylelint './src/scss/**/*.scss' --syntax=scss --config=.stylelintrc --fix; exit 0",
     "eslint:check": "eslint --ext .js src",

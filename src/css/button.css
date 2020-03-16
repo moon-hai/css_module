@@ -1,0 +1,9 @@
+.button {
+  text-align: center;
+  font-size: 20px;
+}
+
+.buttonLg {
+  composes: button;
+  padding: 20px;
+}

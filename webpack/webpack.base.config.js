@@ -18,7 +18,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json', '.css'],
     alias: {
       '@': path.resolve(__dirname, '../src')
     }
@@ -46,19 +46,18 @@ module.exports = {
             options: {
               importLoaders: 1,
               modules: {
-                hashPrefix: 'hash',
-                localIdentName: '[name]__[local]'
+                localIdentName: '[name]__[local]--[hash:base64:5]'
+              }
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: 'postcss.config.js'
               }
             }
           }
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     config: {
-          //       path: 'postcss.config.js'
-          //     }
-          //   }
-          // }
         ],
         exclude: /\.module\.css$/
       },
