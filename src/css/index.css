@@ -1,0 +1,10 @@
+:local(.button) {
+  composes: color1 from './colors.css';
+  composes: color2 from './global.css';
+  font-size: 20px;
+}
+
+.buttonLg {
+  composes: button;
+  font-size: 18px;
+}

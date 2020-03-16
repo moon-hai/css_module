@@ -17,6 +17,13 @@ module.exports = {
     filename: isDevelopment ? 'index.js' : 'index.[hash].js'
   },
 
+  resolve: {
+    extensions: ['.js', '.json'],
+    alias: {
+      '@': path.resolve(__dirname, '../src')
+    }
+  },
+
   optimization: {
     usedExports: true
   },
@@ -27,32 +34,33 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+          loader: 'babel-loader'
         }
       },
       {
-        test: [/.css$|.s[ac]ss$/],
+        test: [/.css$/],
         use: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
           {
-            loader: 'postcss-loader',
+            loader: 'css-loader',
             options: {
-              config: {
-                path: 'postcss.config.js'
+              importLoaders: 1,
+              modules: {
+                hashPrefix: 'hash',
+                localIdentName: '[name]__[local]'
               }
             }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment
-            }
           }
-        ]
+          // {
+          //   loader: 'postcss-loader',
+          //   options: {
+          //     config: {
+          //       path: 'postcss.config.js'
+          //     }
+          //   }
+          // }
+        ],
+        exclude: /\.module\.css$/
       },
       {
         test: /\.(png|jp(e*)g|gif|svg)$/,
