@@ -11,6 +11,8 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 const devWebpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
 
+  devtool: 'inline-source-map',
+
   devServer: {
     clientLogLevel: 'warning',
     contentBase: path.join(__dirname, 'public'),

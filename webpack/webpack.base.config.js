@@ -8,11 +8,17 @@ const init = {
   dest: '../public'
 }
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 module.exports = {
   entry: './src',
   output: {
     path: path.resolve(__dirname, `${init.dest}`),
-    filename: 'index.js'
+    filename: isDevelopment ? 'index.js' : 'index.[hash].js'
+  },
+
+  optimization: {
+    usedExports: true
   },
 
   module: {
@@ -30,7 +36,7 @@ module.exports = {
       {
         test: [/.css$|.s[ac]ss$/],
         use: [
-          'style-loader',
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -40,7 +46,12 @@ module.exports = {
               }
             }
           },
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
         ]
       },
       {
@@ -67,7 +78,8 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'app.[contenthash].css'
+      filename: isDevelopment ? '[name].css' : 'app.[contenthash].css',
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[contenthash].css'
     })
   ].concat(generateHtmlPlugins(path.resolve(__dirname, `${init.src}/html`)))
 }
