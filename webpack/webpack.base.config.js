@@ -65,33 +65,24 @@ module.exports = {
     ]
   },
 
-  devServer: {
-    port: 8001,
-    contentBase: path.join(__dirname, 'public'),
-    watchContentBase: true,
-    hot: true,
-    historyApiFallback: true
-  },
-
   plugins: [
     new MiniCssExtractPlugin({
       filename: 'app.[contenthash].css'
     })
-  ]
-  .concat(generateHtmlPlugins(path.resolve(__dirname, `${init.src}/html`)))
+  ].concat(generateHtmlPlugins(path.resolve(__dirname, `${init.src}/html`)))
 }
 
 function generateHtmlPlugins (templateDir) {
-  function getListFile(dir) {
-    return fs.readdirSync(dir).reduce(function(files, file) {
-      let name = path.join(dir, file)
-      let isDir = fs.statSync(name).isDirectory()
+  function getListFile (dir) {
+    return fs.readdirSync(dir).reduce(function (files, file) {
+      const name = path.join(dir, file)
+      const isDir = fs.statSync(name).isDirectory()
       return files.concat(isDir ? getListFile(name) : name)
     }, [])
   }
 
   return getListFile(templateDir).map(item => {
-    let itemPath = item.split(templateDir).join('').split('/')
+    const itemPath = item.split(templateDir).join('').split('/')
 
     // Get name of file
     const name = itemPath[itemPath.length - 1].split('.')[0]
